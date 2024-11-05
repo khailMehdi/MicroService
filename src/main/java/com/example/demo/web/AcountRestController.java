@@ -1,7 +1,12 @@
 package com.example.demo.web;
 
+import com.example.demo.DTO.BankAccountRequestDTO;
+import com.example.demo.DTO.BankAccountResposeDTO;
 import com.example.demo.Repositories.BankAccountRepository;
+import com.example.demo.Service.AccountService;
 import com.example.demo.entity.BankAccount;
+import com.example.demo.mappers.AccountMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -9,10 +14,16 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api ")
+@RequestMapping("/api")
 public class AcountRestController {
-    private BankAccountRepository bankAccountRepository;
 
+    private BankAccountRepository bankAccountRepository;
+@Autowired
+    private AccountMapper accountMapper;
+
+
+@Autowired
+    private AccountService accountService;
     public AcountRestController(BankAccountRepository bankAccountRepository) {
         this.bankAccountRepository = bankAccountRepository;
     }
@@ -29,10 +40,9 @@ public class AcountRestController {
     }
 
     @PostMapping("/bankAccounts")
-    public BankAccount save(@RequestBody BankAccount bankAccount) {
-        if(bankAccount.getId()==null)
-            bankAccount.setId(UUID.randomUUID().toString());
-        return bankAccountRepository.save(bankAccount);
+    public BankAccountResposeDTO save(@RequestBody BankAccountRequestDTO requestDTO) {
+
+        return accountService.addAccount(requestDTO);
     }
 
     @PutMapping("/bankAccounts/{id}")

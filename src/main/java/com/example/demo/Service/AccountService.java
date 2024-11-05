@@ -1,7 +1,9 @@
 package com.example.demo.Service;
 
-import com.example.demo.entity.BankAccount;
+import com.example.demo.DTO.BankAccountRequestDTO;
+import com.example.demo.DTO.BankAccountResposeDTO;
 
 public interface AccountService {
-    //public BankAccountRespo addAccount(BankAccountDTO bankAccountDTO);
+    public BankAccountResposeDTO addAccount(BankAccountRequestDTO bankAccountDTO);
 }
+
